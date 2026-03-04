@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>.nkm Issue #001 — nakameguro</title>
+<meta name="description" content="これは雑誌じゃない。合図だ。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Special+Elite&family=Space+Mono:wght@400;700&family=Zen+Old+Mincho:wght@900&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:   #141210;
+  --paper: #ddd4bf;
+  --aged:  #a89880;
+  --red:   #b52a18;
+  --cream: #ede5d4;
+  --rust:  #7a3a20;
+}
+
+html, body {
+  height: 100%; width: 100%;
+  background: #0d0b09;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Special Elite', cursive;
+}
+
+/* グレイン全体 */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* ─── COVER ─── */
+.cover {
+  position: relative;
+  width: min(400px, 92vw);
+  height: min(600px, 138vw);
+  background: var(--paper);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.05),
+    6px 10px 60px rgba(0,0,0,0.8),
+    2px 4px 0 rgba(0,0,0,0.4);
+}
+
+/* 紙焼け */
+.cover::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 0% 100%, rgba(100,60,20,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 0%, rgba(80,50,15,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(20,18,16,0.08) 100%);
+}
+
+/* ─── 背景テクスチャ：活版ハーフトーン ─── */
+.bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px, transparent 3px,
+      rgba(20,18,16,0.025) 3px, rgba(20,18,16,0.025) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px, transparent 5px,
+      rgba(20,18,16,0.015) 5px, rgba(20,18,16,0.015) 6px
+    ),
+    linear-gradient(155deg, #d8cdb5 0%, #cdc0a5 40%, #bfaf96 70%, #b5a48a 100%);
+}
+
+/* 大きい背景「M」 */
+.bg-m {
+  position: absolute;
+  z-index: 0;
+  bottom: -8%;
+  right: -8%;
+  font-family: 'Playfair Display', serif;
+  font-size: 78vw;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
+  color: rgba(20,18,16,0.045);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 斜め赤ライン装飾 */
+.deco-line {
+  position: absolute;
+  z-index: 2;
+  background: var(--red);
+  pointer-events: none;
+}
+.deco-line-1 {
+  top: 68px; left: 0; right: 0;
+  height: 2px;
+}
+.deco-line-2 {
+  top: 72px; left: 0; right: 0;
+  height: 1px;
+  background: rgba(181,42,24,0.4);
+}
+.deco-line-3 {
+  bottom: 44px; left: 0; right: 0;
+  height: 2px;
+}
+
+/* ─── MASTHEAD ─── */
+.masthead-wrap {
+  position: absolute;
+  z-index: 10;
+  top: 14px; left: 16px; right: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.masthead {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(3.2rem, 14vw, 5rem);
+  letter-spacing: -0.03em;
+  line-height: 0.9;
+  color: var(--ink);
+}
+.masthead .dot { color: var(--red); }
+
+.issue-meta {
+  text-align: right;
+  padding-top: 6px;
+}
+.issue-meta .num {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 5.5vw, 2.2rem);
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1;
+}
+.issue-meta .date {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.18em;
+  color: var(--aged);
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* ─── 赤バー（mastheadの下） ─── */
+.red-bar {
+  position: absolute;
+  z-index: 10;
+  top: 74px; left: 0; right: 0;
+  background: var(--red);
+  padding: 4px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.red-bar span {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.22em;
+  color: rgba(237,229,212,0.9);
+  text-transform: uppercase;
+}
+
+/* ─── COVER LINES（絶対座標） ─── */
+/* PC: 散らばり / SP: 凝縮 */
+
+.cl {
+  position: absolute;
+  z-index: 20;
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  min-height: 44px; /* タップ領域死守 */
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  transition: transform 0.15s;
+}
+.cl:hover { transform: translateX(3px); }
+.cl:hover .cl-text { text-decoration: underline; text-decoration-style: wavy; text-decoration-color: var(--red); }
+
+.cl-bullet {
+  font-family: 'Special Elite', cursive;
+  font-size: 13px;
+  color: var(--red);
+  margin-right: 6px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.cl-text {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+}
+.cl-text em {
+  font-style: italic;
+  color: var(--red);
+}
+.cl-sub {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.18em;
+  color: var(--aged);
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* 特集（大） */
+.cl-featured .cl-text {
+  font-size: clamp(1.15rem, 4.2vw, 1.4rem);
+}
+/* 通常 */
+.cl-normal .cl-text {
+  font-size: clamp(0.82rem, 3vw, 1rem);
+}
+/* 小 */
+.cl-small .cl-text {
+  font-size: clamp(0.72rem, 2.6vw, 0.88rem);
+}
+
+/* ── 配置（絶対座標） ── */
+
+/* 特集：古着と路地 → 左上寄り */
+.cl-1 {
+  top: 100px; left: 14px;
+  max-width: 58%;
+  transform: rotate(-1.2deg);
+}
+
+/* 右サイドコラム */
+.cl-2 {
+  top: 108px; right: 10px;
+  max-width: 36%;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  transform: rotate(0.8deg);
+}
+.cl-2 .cl-bullet { margin-right: 0; margin-bottom: 2px; }
+
+/* 中段左：Ye Malthouse */
+.cl-3 {
+  top: 280px; left: 10px;
+  max-width: 55%;
+  transform: rotate(0.5deg);
+}
+
+/* 中段右：夜の温度 */
+.cl-4 {
+  top: 310px; right: 8px;
+  max-width: 40%;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  transform: rotate(-0.7deg);
+}
+.cl-4 .cl-bullet { margin-right: 0; margin-bottom: 2px; }
+
+/* 下段：街に参加する */
+.cl-5 {
+  top: 400px; left: 16px;
+  max-width: 60%;
+  transform: rotate(0.4deg);
+}
+
+/* 下段右：裏口の地図 */
+.cl-6 {
+  top: 420px; right: 10px;
+  max-width: 38%;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  transform: rotate(-1deg);
+}
+.cl-6 .cl-bullet { margin-right: 0; margin-bottom: 2px; }
+
+/* スマホ：縦一列に凝縮 */
+@media (max-width: 380px) {
+  .cl { position: static !important; transform: none !important; }
+  .cl-featured .cl-text { font-size: 1.1rem; }
+  .cl-normal .cl-text, .cl-small .cl-text { font-size: 0.85rem; }
+
+  .coverlines-mobile {
+    position: absolute;
+    top: 100px; left: 0; right: 0; bottom: 46px;
+    z-index: 20;
+    display: flex; flex-direction: column;
+    padding: 8px 14px;
+    gap: 0;
+    overflow-y: auto;
+  }
+  .cl {
+    border-bottom: 1px solid rgba(20,18,16,0.1);
+    padding: 9px 0;
+    flex-direction: row !important;
+    align-items: center !important;
+    text-align: left !important;
+    max-width: 100% !important;
+  }
+  .cl-bullet { margin-right: 8px !important; margin-bottom: 0 !important; }
+}
+
+/* ─── 中央ロゴ刻印 ─── */
+.center-stamp {
+  position: absolute;
+  z-index: 15;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(20,18,16,0.18);
+  padding: 10px 14px;
+  pointer-events: none;
+  opacity: 0.35;
+  transform: translate(-50%, -50%) rotate(-5deg);
+}
+.center-stamp span {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.3em;
+  color: var(--ink);
+  text-transform: uppercase;
+  line-height: 1.8;
+  text-align: center;
+}
+
+/* ─── FOOTER BAR ─── */
+.footer-bar {
+  position: absolute;
+  z-index: 20;
+  bottom: 0; left: 0; right: 0;
+  background: var(--ink);
+  padding: 8px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bar span {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  color: rgba(221,212,191,0.45);
+  text-transform: uppercase;
+}
+.footer-bar .price {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(221,212,191,0.85);
+}
+
+/* ─── フェードイン ─── */
+.cover > * { animation: appear 0.7s both; }
+.masthead-wrap { animation-delay: 0.05s; }
+.red-bar       { animation-delay: 0.12s; }
+.cl-1          { animation-delay: 0.2s; }
+.cl-2          { animation-delay: 0.28s; }
+.cl-3          { animation-delay: 0.35s; }
+.cl-4          { animation-delay: 0.4s; }
+.cl-5          { animation-delay: 0.46s; }
+.cl-6          { animation-delay: 0.52s; }
+.center-stamp  { animation-delay: 0.6s; }
+.footer-bar    { animation-delay: 0.65s; }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; }
+}
+/* center-stampはrotateを維持 */
+.center-stamp { animation-name: appear-stamp; }
+@keyframes appear-stamp {
+  from { opacity: 0; }
+  to   { opacity: 0.35; }
+}
+</style>
+</head>
+<body>
+
+<article class="cover">
+
+  <div class="bg"></div>
+  <div class="bg-m">M</div>
+
+  <div class="deco-line deco-line-1"></div>
+  <div class="deco-line deco-line-2"></div>
+  <div class="deco-line deco-line-3"></div>
+
+  <!-- MASTHEAD -->
+  <div class="masthead-wrap">
+    <h1 class="masthead"><span class="dot">.</span>nkm</h1>
+    <div class="issue-meta">
+      <span class="num">#001</span>
+      <span class="date">March 2026<br>Nakameguro</span>
+    </div>
+  </div>
+
+  <!-- 赤バー -->
+  <div class="red-bar">
+    <span>Street · Culture · Memory</span>
+    <span>nkm.press</span>
+  </div>
+
+  <!-- COVER LINES -->
+
+  <!-- 1: 特集 / 古着と路地 -->
+  <a class="cl cl-featured cl-1" href="/street" data-track="cl_street">
+    <span class="cl-bullet">★</span>
+    <div>
+      <span class="cl-text"><em>古着と路地</em>、<br>中目黒の隠れ方</span>
+      <span class="cl-sub">street feature</span>
+    </div>
+  </a>
+
+  <!-- 2: 右上 / 川沿いの記憶 -->
+  <a class="cl cl-small cl-2" href="/street" data-track="cl_river">
+    <span class="cl-bullet">◆</span>
+    <div>
+      <span class="cl-text">川沿いに残る、<br>消えかけた店の話</span>
+      <span class="cl-sub">local memory</span>
+    </div>
+  </a>
+
+  <!-- 3: Ye Malthouse -->
+  <a class="cl cl-normal cl-3" href="/ye" data-track="cl_ye">
+    <span class="cl-bullet">◆</span>
+    <div>
+      <span class="cl-text">Ye Malthouse —<br>パブの夜、その続き</span>
+      <span class="cl-sub">pub · nakameguro</span>
+    </div>
+  </a>
+
+  <!-- 4: 夜の温度 -->
+  <a class="cl cl-small cl-4" href="/bar" data-track="cl_bar">
+    <span class="cl-bullet">·</span>
+    <div>
+      <span class="cl-text">深夜2時の<br><em>適温</em>について</span>
+      <span class="cl-sub">bar · coming soon</span>
+    </div>
+  </a>
+
+  <!-- 5: Passport -->
+  <a class="cl cl-normal cl-5" href="/passport" data-track="cl_passport">
+    <span class="cl-bullet">◆</span>
+    <div>
+      <span class="cl-text">街に参加する、<br>という概念について</span>
+      <span class="cl-sub">passport</span>
+    </div>
+  </a>
+
+  <!-- 6: 裏口の地図 -->
+  <a class="cl cl-normal cl-6" href="/hidden" data-track="cl_hidden">
+    <span class="cl-bullet">●</span>
+    <div>
+      <span class="cl-text"><em>裏口の地図</em>。<br>知っている人だけへ</span>
+      <span class="cl-sub">hidden ↗</span>
+    </div>
+  </a>
+
+  <!-- 中央スタンプ -->
+  <div class="center-stamp">
+    <span>Nakameguro</span>
+    <span>Tokyo · Japan</span>
+    <span>2026</span>
+  </div>
+
+  <!-- フッター -->
+  <div class="footer-bar">
+    <span>.nkm / nakameguro · issue #001</span>
+    <span class="price">Free</span>
+  </div>
+
+</article>
+
+<script>
+(function(){
+  var _t0=Date.now();
+  function send(ev,x){
+    navigator.sendBeacon("/collect",JSON.stringify(
+      Object.assign({event:ev,path:"/",ts:new Date().toISOString()},x||{})
+    ));
+  }
+  send("path_entry");
+  document.querySelectorAll(".cl").forEach(function(el){
+    el.addEventListener("click",function(){
+      send("cta_click",{label:el.dataset.track});
+    });
+  });
+  document.addEventListener("visibilitychange",function(){
+    if(document.visibilityState==="hidden")
+      send("leave",{spent:Math.round((Date.now()-_t0)/1000)});
+  });
+})();
+</script>
+
+</body>
+</html>

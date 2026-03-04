@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ye Malthouse — .nkm</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="nav-logo" href="/">.nkm</a>
+    <div class="nav-links"><a href="/">home</a></div>
+  </nav>
+  <section class="hero">
+    <div class="hero-label fade d1">nakameguro · british pub</div>
+    <h1 class="fade d2"><em>Ye Malthouse</em></h1>
+    <p class="fade d3">中目黒のブリティッシュパブ。<br>月〜日、夕方から深夜まで。</p>
+    <div class="cta-block fade d4">
+      <a class="btn" href="https://www.instagram.com/yemalthouse/" target="_blank" rel="noopener" data-track="ye_instagram">Instagram →</a>
+      <a class="btn ghost" href="https://maps.google.com" target="_blank" rel="noopener" data-track="ye_map">Map →</a>
+    </div>
+  </section>
+  <footer><span>.nkm / ye malthouse</span><span>2026</span></footer>
+</div>
+<script>
+(function(){var _p=location.pathname,_t0=Date.now();function send(ev,x){navigator.sendBeacon("/collect",JSON.stringify(Object.assign({event:ev,path:_p,ts:new Date().toISOString()},x||{})));}send("path_entry");document.addEventListener("click",function(e){var el=e.target.closest("[data-track]");if(el)send("cta_click",{label:el.dataset.track});});document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send("leave",{spent:Math.round((Date.now()-_t0)/1000)});});})();
+</script>
+</body>
+</html>

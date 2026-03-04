@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>.nkm Passport</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="nav-logo" href="/">.nkm</a>
+    <div class="nav-links"><a href="/">home</a></div>
+  </nav>
+  <section class="hero">
+    <div class="hero-label fade d1">passport</div>
+    <h1 class="fade d2">街への<br><em>参加証</em>。</h1>
+    <p class="fade d3">会員証ではない。フォロワー数も関係ない。<br>あなたが街で何をしたか、それだけ。</p>
+    <div class="cta-block fade d4">
+      <a class="btn" href="https://discord.gg/PLACEHOLDER" target="_blank" rel="noopener" data-track="passport_discord">Discord で始める →</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">phases</div>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div style="display:flex;gap:24px;padding:20px 0;border-bottom:1px solid rgba(15,14,13,0.08)">
+        <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--accent);padding-top:3px;flex-shrink:0">Ph.1</span>
+        <div><div style="font-weight:700;margin-bottom:4px">QRステッカー</div><div style="font-size:0.9rem;color:#6a6560">今ここ。300枚、中目黒。</div></div>
+      </div>
+      <div style="display:flex;gap:24px;padding:20px 0;border-bottom:1px solid rgba(15,14,13,0.08)">
+        <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);padding-top:3px;flex-shrink:0">Ph.2</span>
+        <div><div style="font-weight:700;margin-bottom:4px">NFC Passport</div><div style="font-size:0.9rem;color:#6a6560">物理カード。タッチで認証。</div></div>
+      </div>
+      <div style="display:flex;gap:24px;padding:20px 0;border-bottom:1px solid rgba(15,14,13,0.08)">
+        <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);padding-top:3px;flex-shrink:0">Ph.3</span>
+        <div><div style="font-weight:700;margin-bottom:4px">Wallet Pass</div><div style="font-size:0.9rem;color:#6a6560">スマホに入る。</div></div>
+      </div>
+      <div style="display:flex;gap:24px;padding:20px 0">
+        <span style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);padding-top:3px;flex-shrink:0">Ph.4</span>
+        <div><div style="font-weight:700;margin-bottom:4px">XRPL Passport</div><div style="font-size:0.9rem;color:#6a6560">ブロックチェーン上の信頼記録。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><span>.nkm / passport</span><span>2026</span></footer>
+</div>
+<script>
+(function(){var _p=location.pathname,_t0=Date.now();function send(ev,x){navigator.sendBeacon("/collect",JSON.stringify(Object.assign({event:ev,path:_p,ts:new Date().toISOString()},x||{})));}send("path_entry");document.addEventListener("click",function(e){var el=e.target.closest("[data-track]");if(el)send("cta_click",{label:el.dataset.track});});document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send("leave",{spent:Math.round((Date.now()-_t0)/1000)});});})();
+</script>
+</body>
+</html>

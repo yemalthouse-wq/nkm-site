@@ -1,0 +1,2 @@
+/go     /hidden     302
+/go/*   /hidden/:splat  302

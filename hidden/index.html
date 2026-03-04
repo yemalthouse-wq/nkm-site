@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>.nkm</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="nav-logo" href="/">.nkm</a>
+  </nav>
+  <section class="hero">
+    <div class="hero-label fade d1">— ここまで来た人へ</div>
+    <h1 class="fade d2">街を、<br><em>記憶する</em>。</h1>
+    <p class="fade d3">
+      QRを読んでここまで来たあなたは、<br>
+      中目黒の街で何かを感じた人だ。<br><br>
+      .nkm は、その「何か」を記録する場所。<br>
+      売上でも、フォロワーでもなく、<br>
+      人の行動と、街の体温を。
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="drop-block fade d1">
+      <div class="drop-label">💧 drop — 信頼の粒子</div>
+      <p>
+        .nkm では、お金では買えない「信頼」を記録する仕組みを作っている。<br>
+        あの人はあの夜、誰かを助けた。<br>
+        それは消えない記録として残る。<br><br>
+        これが、.nkm が目指す文化の基層だ。
+      </p>
+    </div>
+    <a class="btn fade d2" style="max-width:360px;margin-top:32px"
+       href="https://discord.gg/PLACEHOLDER" target="_blank" rel="noopener"
+       data-track="hidden_discord">もっと知りたい人は Discord へ →</a>
+  </section>
+
+  <footer><span>.nkm / nakameguro</span><span>2026</span></footer>
+</div>
+<script>
+(function(){
+  var _p=location.pathname,_t0=Date.now();
+  var _ch=new URLSearchParams(location.search).get("ch")||"";
+  function send(ev,x){navigator.sendBeacon("/collect",JSON.stringify(Object.assign({event:ev,path:_p,ch:_ch,ts:new Date().toISOString()},x||{})));}
+  if(_ch) send("scan",{ch:_ch});
+  send("path_entry");
+  document.addEventListener("click",function(e){var el=e.target.closest("[data-track]");if(el)send("cta_click",{label:el.dataset.track});});
+  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send("leave",{spent:Math.round((Date.now()-_t0)/1000)});});
+  setTimeout(function(){send("read_30s");},30000);
+})();
+</script>
+</body>
+</html>

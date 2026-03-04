@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:    #0f0e0d;
+  --paper:  #f4f0e8;
+  --drop:   #1a3a5c;
+  --accent: #c8a96e;
+  --muted:  #8a8480;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', serif;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+.wrap { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 0 28px; }
+
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28px 0; border-bottom: 1px solid rgba(15,14,13,0.1);
+}
+.nav-logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px; letter-spacing: 0.2em; color: var(--ink); text-decoration: none;
+}
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 0.2em; color: var(--muted); text-decoration: none;
+  text-transform: uppercase; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+.hero { padding: 80px 0 64px; }
+.hero-label {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 0.3em; color: var(--accent); text-transform: uppercase; margin-bottom: 28px;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 8vw, 3.8rem); font-weight: 700;
+  line-height: 1.2; margin-bottom: 28px;
+}
+.hero h1 em { font-style: normal; color: var(--drop); }
+.hero p { font-size: 1.05rem; line-height: 2.1; color: #4a4540; max-width: 480px; margin-bottom: 40px; }
+
+/* CTA — 3秒導線 */
+.cta-block { display: flex; flex-direction: column; gap: 12px; max-width: 360px; }
+.btn {
+  display: block; width: 100%;
+  font-family: 'Space Mono', monospace; font-size: 11px;
+  letter-spacing: 0.2em; text-transform: uppercase; text-align: center;
+  color: var(--paper); background: var(--ink);
+  text-decoration: none; border: 1px solid var(--ink);
+  padding: 16px 24px; transition: background 0.2s, color 0.2s;
+}
+.btn:hover { background: var(--drop); border-color: var(--drop); }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover { background: var(--ink); color: var(--paper); }
+
+.section { padding: 64px 0; border-top: 1px solid rgba(15,14,13,0.08); }
+.section-label {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; margin-bottom: 32px;
+}
+.section h2 { font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 700; margin-bottom: 20px; }
+.section p  { font-size: 1rem; line-height: 2.1; color: #4a4540; max-width: 520px; margin-bottom: 28px; }
+
+.drop-block {
+  border-left: 3px solid var(--drop); padding: 20px 24px;
+  margin: 32px 0; background: rgba(26,58,92,0.04);
+}
+.drop-label {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 0.25em; color: var(--drop); margin-bottom: 10px;
+}
+.drop-block p { font-size: 0.95rem; line-height: 2; color: #3a3632; }
+
+footer {
+  padding: 40px 0; border-top: 1px solid rgba(15,14,13,0.1);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 0.15em; color: var(--muted);
+}
+
+/* イベント計測用 */
+[data-track] { cursor: pointer; }
+
+.fade { opacity: 0; transform: translateY(18px); animation: rise 0.85s forwards; }
+.d1 { animation-delay: 0.1s; } .d2 { animation-delay: 0.25s; }
+.d3 { animation-delay: 0.4s; } .d4 { animation-delay: 0.55s; }
+.d5 { animation-delay: 0.7s; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+@media (max-width: 480px) {
+  nav { flex-direction: column; gap: 14px; align-items: flex-start; }
+  footer { flex-direction: column; gap: 10px; }
+}
